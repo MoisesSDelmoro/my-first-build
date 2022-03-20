@@ -1,15 +1,31 @@
-import React, { ReactNode, FC, HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useEffect, useRef } from 'react';
+import useModel from '../useModel';
 
 import { Container } from './styles';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   modelName: string
-  overlayNode: ReactNode
+  overlayNode: React.ReactNode
 }
 
-const ModelSection: FC<Props> = ({ modelName, overlayNode, children, ...props }) => {
+const ModelSection: React.FC<Props> = ({
+  modelName,
+  overlayNode,
+  children,
+  ...props
+}) => {
+  const { registerModel } = useModel(modelName)
+
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => { 
+    if (sectionRef.current){
+      registerModel({modelName, overlayNode, sectionRef})
+    }
+  }, [modelName, overlayNode, sectionRef])
+
   return (
-    <Container {...props}>
+    <Container ref={sectionRef} {...props}>
       {children}
     </Container>
   )

@@ -1,6 +1,7 @@
 import ModelsContext, { CardModel } from 'components/Model/ModelsContext'
 import React, { useCallback, useRef, useState } from 'react'
-import { Container } from './styles'
+import ModelOverlay from 'components/Model/ModelOverlay'
+import { Container, OverlaysRoot } from './styles'
 
 const ModelsWrapper: React.FC = ({ children }) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -27,8 +28,15 @@ const ModelsWrapper: React.FC = ({ children }) => {
         registerModel,
         unregisterModel,
         getModelByName,
-      }}> 
+      }}>
       <Container ref={wrapperRef}>
+        <OverlaysRoot>
+          {registeredModels.map(item => (
+            <ModelOverlay key={item.modelName}>
+              {item.modelName}
+            </ModelOverlay>
+          ))}
+        </OverlaysRoot>
         {children}
       </Container>
     </ModelsContext.Provider>
