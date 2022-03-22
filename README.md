@@ -1,7 +1,7 @@
 [![License](https://img.shields.io/apm/l/vim-mode?color=blue)](http://badges.mit-license.org)
 
 # Home Page Tesla
-Desenvolvimento com base no site da Tesla.
+Desenvolvimento com base na layout do site da Tesla.
 
 ---
 
